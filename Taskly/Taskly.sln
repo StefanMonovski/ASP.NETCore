@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01.Taskly.Web", "01.Taskly.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.Taskly.Data", "02.Taskly.Data\02.Taskly.Data.csproj", "{A87164B0-3AD6-4C79-BC97-A733F6FC651F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03.Taskly.Services", "03.Taskly.Services\03.Taskly.Services.csproj", "{F700DC7E-894F-44BE-9987-D52368B782E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A87164B0-3AD6-4C79-BC97-A733F6FC651F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A87164B0-3AD6-4C79-BC97-A733F6FC651F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A87164B0-3AD6-4C79-BC97-A733F6FC651F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F700DC7E-894F-44BE-9987-D52368B782E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F700DC7E-894F-44BE-9987-D52368B782E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F700DC7E-894F-44BE-9987-D52368B782E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F700DC7E-894F-44BE-9987-D52368B782E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
