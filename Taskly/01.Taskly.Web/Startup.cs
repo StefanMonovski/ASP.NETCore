@@ -7,6 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Taskly.Data.Models;
+using Taskly.Services.Interfaces;
+using Taskly.Services.Services;
+using System;
 
 namespace Taskly.Web
 {
@@ -29,10 +32,26 @@ namespace Taskly.Web
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
             services.AddControllersWithViews(configure =>
             {
                 configure.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddTransient<ILabelNoteService, LabelNoteService>();
+            services.AddTransient<ILabelTaskService, LabelTaskService>();
+            services.AddTransient<ILabelService, LabelService>();
+            services.AddTransient<INoteService, NoteService>();
+            services.AddTransient<IPriorityService, PriorityService>();
+            services.AddTransient<ICommentReactionService, CommentReactionService>();
+            services.AddTransient<ICommentService, CommentService>();
+            services.AddTransient<IReplyReactionService, ReplyReactionService>();
+            services.AddTransient<IReplyService, ReplyService>();
+            services.AddTransient<IProjectService, ProjectService>();
+            services.AddTransient<IProjectUserService, ProjectUserService>();
+            services.AddTransient<ITaskService, TaskService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -6,8 +6,8 @@ namespace Taskly.Services.Interfaces
 {
     public interface IPriorityService
     {
-        Task<List<PriorityDto>> GetAllPriorities();
+        List<PriorityDto> GetAllPriorities();
 
-        Task<PriorityDto> GetPriority(int priorityId);
+        PriorityDto GetPriority(int priorityId);
     }
 }

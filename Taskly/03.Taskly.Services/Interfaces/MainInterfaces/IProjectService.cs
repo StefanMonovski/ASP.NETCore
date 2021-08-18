@@ -6,7 +6,7 @@ namespace Taskly.Services.Interfaces
 {
     public interface IProjectService
     {
-        Task<string> AddProjectAsync(string title, string userId, int? colorArgb);
+        Task<string> AddProjectAsync(string title, int? colorArgb, string userId);
 
         Task<string> DeleteProjectAsync(int projectId);
 
@@ -18,16 +18,16 @@ namespace Taskly.Services.Interfaces
 
         Task<string> UnarchiveProjectAsync(int projectId);
 
-        Task<string> AddToFavoritesAsync(int projectId, string userId);
+        Task<string> AddToFavoritesAsync(int projectId);
 
-        Task<string> RemoveFromFavoritesAsync(int projectId, string userId);
+        Task<string> RemoveFromFavoritesAsync(int projectId);
 
-        Task<List<ProjectDto>> GetAllProjects(string userId);
+        List<ProjectDto> GetAllProjects(string userId);
 
-        Task<List<ProjectDto>> GetAllPersonalProjects(string userId);
+        List<ProjectDto> GetAllPersonalProjects(string userId);
 
-        Task<List<ProjectDto>> GetAllCollaborativeProjects(string userId);
+        List<ProjectDto> GetAllCollaborativeProjects(string userId);
 
-        Task<ProjectDto> GetProject(int projectId);
+        ProjectDto GetProject(int projectId);
     }
 }

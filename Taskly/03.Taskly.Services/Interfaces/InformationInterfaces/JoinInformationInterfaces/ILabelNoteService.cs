@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 
 namespace Taskly.Services.Interfaces
 {
-    interface ILabelNoteService
+    public interface ILabelNoteService
     {
-        Task<string> AddLabelNoteAsync(int labelId, int noteId);
+        Task AddLabelNoteAsync(int labelId, int noteId);
 
-        Task<string> DeleteLabelNoteAsync(int labelId, int noteId);
+        Task DeleteLabelNoteAsync(int labelId, int noteId);
 
-        Task<List<LabelDto>> GetAllLabelsFromNote(int noteId);
+        List<LabelDto> GetAllLabelsFromNote(int noteId);
     }
 }

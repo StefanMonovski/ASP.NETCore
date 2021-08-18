@@ -12,10 +12,10 @@ namespace Taskly.Services.Interfaces
 
         Task<string> UpdateCommentContentAsync(int commentId, string content);
 
-        Task<List<CommentDto>> GetAllCommentsByTask(int taskId);
+        List<CommentDto> GetAllCommentsByTask(int taskId);
 
-        Task<List<CommentDto>> GetAllCommentsByUser(string userId);
+        List<CommentDto> GetAllCommentsByUser(string userId);
 
-        Task<CommentDto> GetComment(int commentId);
+        CommentDto GetComment(int commentId);
     }
 }

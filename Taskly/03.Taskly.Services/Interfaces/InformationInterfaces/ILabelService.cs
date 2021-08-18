@@ -6,14 +6,14 @@ namespace Taskly.Services.Interfaces
 {
     public interface ILabelService
     {
-        Task<string> AddLabelAsync(string title, int? colorArgb, string userId);
+        Task<int> AddLabelAsync(string title, int? colorArgb, string userId);
 
-        Task<string> DeleteLabelAsync(int labelId);
+        Task<int> DeleteLabelAsync(int labelId);
 
-        Task<string> UpdateLabelColorAsync(int labelId, int? colorArgb);
+        Task<int> UpdateLabelColorAsync(int labelId, int? colorArgb);
 
-        Task<List<LabelDto>> GetAllLabels();
+        List<LabelDto> GetAllLabels();
 
-        Task<LabelDto> GetLabel(int labelId);
+        LabelDto GetLabel(int labelId);
     }
 }

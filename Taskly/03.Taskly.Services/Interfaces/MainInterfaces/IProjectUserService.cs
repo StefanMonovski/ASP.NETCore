@@ -6,18 +6,18 @@ namespace Taskly.Services.Interfaces
 {
     public interface IProjectUserService
     {
-        Task<string> AddUserToProjectAsync(int projectId, string userId, bool isCollaborator);
+        Task AddUserToProjectAsync(int projectId, string userId, bool isCollaborator);
 
-        Task<string> AddUserRangeToProjectAsync(int projectId, List<string> usersIds, bool areCollaborators);
+        Task AddUserRangeToProjectAsync(int projectId, List<string> usersIds, bool areCollaborators);
 
-        Task<string> DeleteUserFromProjectAsync(int projectId, string userId);
+        Task DeleteUserFromProjectAsync(int projectId, string userId);
 
-        Task<string> DeleteUserRangeFromProjectAsync(int projectId, List<string> usersIds);
+        Task DeleteUserRangeFromProjectAsync(int projectId, List<string> usersIds);
 
-        Task<string> AddUserAsCollaboratorAsync(int projectId, string userId);
+        Task AddUserAsCollaboratorAsync(int projectId, string userId);
 
-        Task<string> RemoveUserAsCollaboratorAsync(int projectId, string userId);
+        Task RemoveUserAsCollaboratorAsync(int projectId, string userId);
 
-        Task<List<ProjectUserDto>> GetAllUsersByProject(int projectId);
+        List<ProjectUserDto> GetAllUsersByProject(int projectId);
     }
 } 

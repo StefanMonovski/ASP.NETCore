@@ -17,7 +17,7 @@ namespace Taskly.Services.Interfaces
 
         Task<string> UpdateTaskDescription(int taskId, string description);
 
-        Task<string> ScheduleTaskAsync(int taskId, DateTime Schedule);
+        Task<string> ScheduleTaskAsync(int taskId, DateTime schedule);
 
         Task<string> UnscheduleTaskAsync(int taskId);
         
@@ -29,10 +29,14 @@ namespace Taskly.Services.Interfaces
 
         Task<string> UncompleteTaskAsync(int taskId);
 
-        Task<List<TaskDto>> GetAllTasksByProject(int projectId);
+        List<TaskDto> GetAllTasksByProject(int projectId);
 
-        Task<List<TaskDto>> GetAllSubTasksByTask(int parentTaskId);
+        List<TaskDto> GetAllIncompletedTasksByProject(int projectId);
 
-        Task<TaskDto> GetTask(int taskId);
+        List<TaskDto> GetAllSubTasksByTask(int parentTaskId);
+
+        List<TaskDto> GetAllIncompletedSubTasksByProject(int parentTaskId);
+
+        TaskDto GetTask(int taskId);
     }
 }

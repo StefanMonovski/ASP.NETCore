@@ -6,12 +6,12 @@ namespace Taskly.Services.Interfaces
 {
     public interface IReplyReactionService
     {
-        Task<string> AddReplyReaction(bool isPositive, int replyId, string userId);
+        Task AddReplyReaction(bool isPositive, int replyId, string userId);
 
-        Task<string> DeleteReplyReaction(int replyId, string creatorId);
+        Task DeleteReplyReaction(int replyId, string creatorId);
 
-        Task<List<ReplyReactionDto>> GetAllReactionsByReply(int replyId);
+        List<ReplyReactionDto> GetAllReactionsByReply(int replyId);
 
-        Task<ReplyReactionDto> GetReplyReaction(int replyId, string creatorId);
+        ReplyReactionDto GetReplyReaction(int replyId, string creatorId);
     }
 }
