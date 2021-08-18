@@ -18,10 +18,6 @@ namespace Taskly.Services.Interfaces
 
         Task<string> UnarchiveProjectAsync(int projectId);
 
-        Task<string> AddToFavoritesAsync(int projectId);
-
-        Task<string> RemoveFromFavoritesAsync(int projectId);
-
         List<ProjectDto> GetAllProjects(string userId);
 
         List<ProjectDto> GetAllPersonalProjects(string userId);

@@ -109,30 +109,6 @@ namespace Taskly.Services.Services
             return project.Guid;
         }
 
-        public async Task<string> AddToFavoritesAsync(int projectId)
-        {
-            Project project = context.Projects
-                .Where(x => x.Id == projectId)
-                .FirstOrDefault();
-
-            project.IsFavorite = true;
-            await context.SaveChangesAsync();
-
-            return project.Guid;
-        }
-
-        public async Task<string> RemoveFromFavoritesAsync(int projectId)
-        {
-            Project project = context.Projects
-                .Where(x => x.Id == projectId)
-                .FirstOrDefault();
-
-            project.IsFavorite = false;
-            await context.SaveChangesAsync();
-
-            return project.Guid;
-        }
-
         public List<ProjectDto> GetAllProjects(string userId)
         {
             List<ProjectDto> projectsDto = context.Projects

@@ -75,6 +75,20 @@ namespace Taskly.Services.Services
 
             context.Remove(projectUser);
             await context.SaveChangesAsync();
+
+            int projectUsersCount = context.ProjectsUsers
+                .Where(x => x.ProjectId == projectId)
+                .Count();
+
+            if (projectUsersCount == 1)
+            {
+                Project project = context.Projects
+                    .Where(x => x.Id == projectId)
+                    .FirstOrDefault();
+
+                project.IsPersonal = true;
+                await context.SaveChangesAsync();
+            }
         }
 
         public async Task DeleteUserRangeFromProjectAsync(int projectId, List<string> usersIds)
@@ -92,6 +106,20 @@ namespace Taskly.Services.Services
 
             context.RemoveRange(projectUsers);
             await context.SaveChangesAsync();
+
+            int projectUsersCount = context.ProjectsUsers
+                .Where(x => x.ProjectId == projectId)
+                .Count();
+
+            if (projectUsersCount == 1)
+            {
+                Project project = context.Projects
+                    .Where(x => x.Id == projectId)
+                    .FirstOrDefault();
+
+                project.IsPersonal = true;
+                await context.SaveChangesAsync();
+            }
         }
 
         public async Task AddUserAsCollaboratorAsync(int projectId, string userId)
@@ -111,6 +139,26 @@ namespace Taskly.Services.Services
                 .FirstOrDefault();
 
             projectUser.IsCollaborator = false;
+            await context.SaveChangesAsync();
+        }
+
+        public async Task AddProjectToUserFavoritesAsync(int projectId, string userId)
+        {
+            ProjectUser projectUser = context.ProjectsUsers
+                .Where(x => x.ProjectId == projectId && x.UserId == userId)
+                .FirstOrDefault();
+
+            projectUser.IsProjectFavorite = true;
+            await context.SaveChangesAsync();
+        }
+
+        public async Task RemoveProjectFromUserFavoritesAsync(int projectId, string userId)
+        {
+            ProjectUser projectUser = context.ProjectsUsers
+                .Where(x => x.ProjectId == projectId && x.UserId == userId)
+                .FirstOrDefault();
+
+            projectUser.IsProjectFavorite = false;
             await context.SaveChangesAsync();
         }
 

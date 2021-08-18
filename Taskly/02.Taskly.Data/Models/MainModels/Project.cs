@@ -29,8 +29,6 @@ namespace Taskly.Data.Models
 
         public bool IsPersonal { get; set; } = true;
 
-        public bool IsFavorite { get; set; } = false;
-
         public IEnumerable<ProjectUser> ProjectUsers { get; set; }
 
         public IEnumerable<Note> Notes { get; set; }

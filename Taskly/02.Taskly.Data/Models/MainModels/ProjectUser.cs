@@ -11,5 +11,7 @@
         public bool IsCreator { get; set; }
 
         public bool IsCollaborator { get; set; }
+
+        public bool IsProjectFavorite { get; set; } = false;
     }
 }

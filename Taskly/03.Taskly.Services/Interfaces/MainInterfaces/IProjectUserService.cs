@@ -18,6 +18,10 @@ namespace Taskly.Services.Interfaces
 
         Task RemoveUserAsCollaboratorAsync(int projectId, string userId);
 
+        Task AddProjectToUserFavoritesAsync(int projectId, string userId);
+
+        Task RemoveProjectFromUserFavoritesAsync(int projectId, string userId);
+
         List<ProjectUserDto> GetAllUsersByProject(int projectId);
     }
 } 
