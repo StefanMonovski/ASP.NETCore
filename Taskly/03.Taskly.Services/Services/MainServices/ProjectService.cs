@@ -122,9 +122,10 @@ namespace Taskly.Services.Services
 
         public List<ProjectDto> GetAllPersonalProjects(string userId)
         {
-            List<ProjectDto> projectsDto = context.Projects
+            List<ProjectDto> projectsDto = context.ProjectsUsers
+                .Where(x => x.UserId == userId)
+                .Select(x => x.Project)
                 .Where(x => x.IsPersonal == true)
-                .Select(x => x.ProjectUsers.Where(x => x.UserId == userId))
                 .ProjectTo<ProjectDto>(mapper.ConfigurationProvider)
                 .ToList();
 
@@ -133,9 +134,10 @@ namespace Taskly.Services.Services
 
         public List<ProjectDto> GetAllCollaborativeProjects(string userId)
         {
-            List<ProjectDto> projectsDto = context.Projects
+            List<ProjectDto> projectsDto = context.ProjectsUsers
+                .Where(x => x.UserId == userId)
+                .Select(x => x.Project)
                 .Where(x => x.IsPersonal == false)
-                .Select(x => x.ProjectUsers.Where(x => x.UserId == userId))
                 .ProjectTo<ProjectDto>(mapper.ConfigurationProvider)
                 .ToList();
 
