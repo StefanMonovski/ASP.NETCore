@@ -111,8 +111,9 @@ namespace Taskly.Services.Services
 
         public List<ProjectDto> GetAllProjects(string userId)
         {
-            List<ProjectDto> projectsDto = context.Projects
-                .Select(x => x.ProjectUsers.Where(x => x.UserId == userId))
+            List<ProjectDto> projectsDto = context.ProjectsUsers
+                .Where(x => x.UserId == userId)
+                .Select(x => x.Project)
                 .ProjectTo<ProjectDto>(mapper.ConfigurationProvider)
                 .ToList();
 
