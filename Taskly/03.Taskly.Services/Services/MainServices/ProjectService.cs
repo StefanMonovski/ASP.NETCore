@@ -142,6 +142,17 @@ namespace Taskly.Services.Services
             return projectsDto;
         }
 
+        public List<ProjectDto> GetAllFavoriteProjects(string userId)
+        {
+            List<ProjectDto> projectsDto = context.ProjectsUsers
+                .Where(x => x.UserId == userId && x.IsProjectFavorite == true)
+                .Select(x => x.Project)
+                .ProjectTo<ProjectDto>(mapper.ConfigurationProvider)
+                .ToList();
+
+            return projectsDto;
+        }
+
         public ProjectDto GetProject(int projectId)
         {
             ProjectDto projectDto = context.Projects
