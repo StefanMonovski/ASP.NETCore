@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
+using System.Collections.Generic;
 using Taskly.Data.Models;
 using Taskly.Services.DataTransferObjects;
 
 namespace Taskly.Services.Mapping
 {
-    public class AutoMapperProfile : Profile
+    public class ServicesAutoMapperProfile : Profile
     {
-        public AutoMapperProfile()
+        public ServicesAutoMapperProfile()
         {
             CreateMap<Label, LabelDto>();
             CreateMap<Note, NoteDto>();
