@@ -122,10 +122,20 @@ namespace Taskly.Services.Services
             return notesDto;
         }
 
-        public NoteDto GetNote(int noteId)
+        public NoteDto GetNoteById(int noteId)
         {
             NoteDto noteDto = context.Notes
                 .Where(x => x.Id == noteId)
+                .ProjectTo<NoteDto>(mapper.ConfigurationProvider)
+                .FirstOrDefault();
+
+            return noteDto;
+        }
+
+        public NoteDto GetNoteByGuid(string noteGuid)
+        {
+            NoteDto noteDto = context.Notes
+                .Where(x => x.Guid == noteGuid)
                 .ProjectTo<NoteDto>(mapper.ConfigurationProvider)
                 .FirstOrDefault();
 

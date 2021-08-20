@@ -16,6 +16,8 @@ namespace Taskly.Services.Interfaces
 
         List<ReplyDto> GetAllRepliesByUser(string userId);
 
-        ReplyDto GetReply(int replyId);
+        ReplyDto GetReplyById(int replyId);
+
+        ReplyDto GetReplyByGuid(string replyGuid);
     }
 }

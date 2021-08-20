@@ -16,6 +16,8 @@ namespace Taskly.Services.Interfaces
 
         List<CommentDto> GetAllCommentsByUser(string userId);
 
-        CommentDto GetComment(int commentId);
+        CommentDto GetCommentById(int commentId);
+
+        CommentDto GetCommentByGuid(string commentGuid);
     }
 }

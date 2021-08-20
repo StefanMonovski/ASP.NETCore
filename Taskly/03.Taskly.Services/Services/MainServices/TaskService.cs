@@ -203,10 +203,20 @@ namespace Taskly.Services.Services
             return tasksDto;
         }
 
-        public TaskDto GetTask(int taskId)
+        public TaskDto GetTaskById(int taskId)
         {
             TaskDto taskDto = context.Tasks
                 .Where(x => x.Id == taskId)
+                .ProjectTo<TaskDto>(mapper.ConfigurationProvider)
+                .FirstOrDefault();
+
+            return taskDto;
+        }
+
+        public TaskDto GetTaskByGuid(string taskGuid)
+        {
+            TaskDto taskDto = context.Tasks
+                .Where(x => x.Guid == taskGuid)
                 .ProjectTo<TaskDto>(mapper.ConfigurationProvider)
                 .FirstOrDefault();
 

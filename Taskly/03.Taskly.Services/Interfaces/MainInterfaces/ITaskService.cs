@@ -37,6 +37,8 @@ namespace Taskly.Services.Interfaces
 
         List<TaskDto> GetAllIncompletedSubTasksByProject(int parentTaskId);
 
-        TaskDto GetTask(int taskId);
+        TaskDto GetTaskById(int taskId);
+
+        TaskDto GetTaskByGuid(string taskGuid);
     }
 }

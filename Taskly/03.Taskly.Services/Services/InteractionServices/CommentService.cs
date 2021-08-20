@@ -80,10 +80,20 @@ namespace Taskly.Services.Services
             return commentsDto;
         }
 
-        public CommentDto GetComment(int commentId)
+        public CommentDto GetCommentById(int commentId)
         {
             CommentDto commentDto = context.Comments
                 .Where(x => x.Id == commentId)
+                .ProjectTo<CommentDto>(mapper.ConfigurationProvider)
+                .FirstOrDefault();
+
+            return commentDto;
+        }
+
+        public CommentDto GetCommentByGuid(string commentGuid)
+        {
+            CommentDto commentDto = context.Comments
+                .Where(x => x.Guid == commentGuid)
                 .ProjectTo<CommentDto>(mapper.ConfigurationProvider)
                 .FirstOrDefault();
 

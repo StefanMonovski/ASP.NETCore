@@ -80,10 +80,20 @@ namespace Taskly.Services.Services
             return repliesDto;
         }
 
-        public ReplyDto GetReply(int replyId)
+        public ReplyDto GetReplyById(int replyId)
         {
             ReplyDto replyDto = context.Replies
                 .Where(x => x.Id == replyId)
+                .ProjectTo<ReplyDto>(mapper.ConfigurationProvider)
+                .FirstOrDefault();
+
+            return replyDto;
+        }
+
+        public ReplyDto GetReplyByGuid(string replyGuid)
+        {
+            ReplyDto replyDto = context.Replies
+                .Where(x => x.Guid == replyGuid)
                 .ProjectTo<ReplyDto>(mapper.ConfigurationProvider)
                 .FirstOrDefault();
 

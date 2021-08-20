@@ -22,6 +22,8 @@ namespace Taskly.Services.Interfaces
 
         List<NoteDto> GetAllProjectNotes(int projectId);
 
-        NoteDto GetNote(int noteId);
+        NoteDto GetNoteById(int noteId);
+
+        NoteDto GetNoteByGuid(string noteGuid);
     }
-}                                               
+}
