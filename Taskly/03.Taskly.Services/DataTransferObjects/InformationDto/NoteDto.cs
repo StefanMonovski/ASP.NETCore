@@ -12,7 +12,7 @@ namespace Taskly.Services.DataTransferObjects
 
         public string Content { get; set; }
 
-        public int? ColorArgb { get; set; }
+        public string ColorHex { get; set; }
 
         public string CreatorId { get; set; }
 

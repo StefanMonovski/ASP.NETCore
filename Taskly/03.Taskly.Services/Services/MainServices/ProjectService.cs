@@ -22,12 +22,12 @@ namespace Taskly.Services.Services
             this.mapper = mapper;
         }
 
-        public async Task<string> AddProjectAsync(string title, int? colorArgb, string userId)
+        public async Task<string> AddProjectAsync(string title, string colorHex, string userId)
         {
             Project project = new()
             {
                 Title = title,
-                ColorArgb = colorArgb,
+                ColorHex = colorHex,
             };
 
             await context.Projects.AddAsync(project);
@@ -71,13 +71,13 @@ namespace Taskly.Services.Services
             return project.Guid;
         }
 
-        public async Task<string> UpdateProjectColorAsync(int projectId, int? colorArgb)
+        public async Task<string> UpdateProjectColorAsync(int projectId, string colorHex)
         {
             Project project = context.Projects
                 .Where(x => x.Id == projectId)
                 .FirstOrDefault();
 
-            project.ColorArgb = colorArgb;
+            project.ColorHex = colorHex;
             await context.SaveChangesAsync();
 
             return project.Guid;

@@ -21,12 +21,12 @@ namespace Taskly.Services.Services
             this.mapper = mapper;
         }
 
-        public async Task<int> AddLabelAsync(string title, int? colorArgb, string userId)
+        public async Task<int> AddLabelAsync(string title, string colorHex, string userId)
         {
             Label label = new()
             {
                 Title = title,
-                ColorArgb = colorArgb,
+                ColorHex = colorHex,
                 CreatorId = userId,
             };
 
@@ -48,13 +48,13 @@ namespace Taskly.Services.Services
             return label.Id;
         }
 
-        public async Task<int> UpdateLabelColorAsync(int labelId, int? colorArgb)
+        public async Task<int> UpdateLabelColorAsync(int labelId, string colorHex)
         {
             Label label = context.Labels
                 .Where(x => x.Id == labelId)
                 .FirstOrDefault();
 
-            label.ColorArgb = colorArgb;
+            label.ColorHex = colorHex;
             await context.SaveChangesAsync();
 
             return label.Id;

@@ -6,9 +6,9 @@ namespace Taskly.Services.Interfaces
 {
     public interface INoteService
     {
-        Task<string> AddNoteAsync(string title, string content, int? colorArgb, string userId);
+        Task<string> AddNoteAsync(string title, string content, string colorHex, string userId);
         
-        Task<string> AddNoteToProjectAsync(string title, string content, int? colorArgb, int projectId, string userId);
+        Task<string> AddNoteToProjectAsync(string title, string content, string colorHex, int projectId, string userId);
 
         Task<string> DeleteNoteAsync(int noteId);
 
@@ -16,7 +16,7 @@ namespace Taskly.Services.Interfaces
 
         Task<string> UpdateNoteContentAsync(int noteId, string content);
 
-        Task<string> UpdateNoteColorAsync(int noteId, int? colorArgb);
+        Task<string> UpdateNoteColorAsync(int noteId, string colorHex);
 
         List<NoteDto> GetAllPersonalNotes();
 

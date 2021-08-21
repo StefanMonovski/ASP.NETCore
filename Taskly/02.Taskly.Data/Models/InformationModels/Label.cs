@@ -15,7 +15,8 @@ namespace Taskly.Data.Models
         [MaxLength(50)]
         public string Title { get; set; }
 
-        public int? ColorArgb { get; set; }
+        [StringLength(7)]
+        public string ColorHex { get; set; }
 
         [Required]
         public string CreatorId { get; set; }

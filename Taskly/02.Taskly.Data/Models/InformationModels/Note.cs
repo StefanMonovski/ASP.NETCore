@@ -20,7 +20,8 @@ namespace Taskly.Data.Models
 
         public string Content { get; set; }
 
-        public int? ColorArgb { get; set; }
+        [StringLength(7)]
+        public string ColorHex { get; set; }
 
         [Required]
         public string CreatorId { get; set; }

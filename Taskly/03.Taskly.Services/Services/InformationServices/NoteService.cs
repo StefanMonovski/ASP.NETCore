@@ -21,13 +21,13 @@ namespace Taskly.Services.Services
             this.mapper = mapper;
         }
 
-        public async Task<string> AddNoteAsync(string title, string content, int? colorArgb, string userId)
+        public async Task<string> AddNoteAsync(string title, string content, string colorHex, string userId)
         {
             Note note = new()
             {
                 Title = title,
                 Content = content,
-                ColorArgb = colorArgb,
+                ColorHex = colorHex,
                 CreatorId = userId
             };
 
@@ -37,13 +37,13 @@ namespace Taskly.Services.Services
             return note.Guid;
         }
 
-        public async Task<string> AddNoteToProjectAsync(string title, string content, int? colorArgb, int projectId, string userId)
+        public async Task<string> AddNoteToProjectAsync(string title, string content, string colorHex, int projectId, string userId)
         {
             Note note = new()
             {
                 Title = title,
                 Content = content,
-                ColorArgb = colorArgb,
+                ColorHex = colorHex,
                 ProjectId = projectId,
                 CreatorId = userId
             };
@@ -90,13 +90,13 @@ namespace Taskly.Services.Services
             return note.Guid;
         }
 
-        public async Task<string> UpdateNoteColorAsync(int noteId, int? colorArgb)
+        public async Task<string> UpdateNoteColorAsync(int noteId, string colorHex)
         {
             Note note = context.Notes
                 .Where(x => x.Id == noteId)
                 .FirstOrDefault();
 
-            note.ColorArgb = colorArgb;
+            note.ColorHex = colorHex;
             await context.SaveChangesAsync();
 
             return note.Guid;

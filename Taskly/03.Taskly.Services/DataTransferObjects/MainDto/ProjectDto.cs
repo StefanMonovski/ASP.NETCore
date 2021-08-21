@@ -11,7 +11,7 @@ namespace Taskly.Services.DataTransferObjects
 
         public string Title { get; set; }
 
-        public int? ColorArgb { get; set; }
+        public string ColorHex { get; set; }
 
         public DateTime? ArchivedOn { get; set; }
 

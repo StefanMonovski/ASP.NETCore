@@ -21,7 +21,8 @@ namespace Taskly.Data.Models
         [MaxLength(100)]
         public string Title { get; set; }
 
-        public int? ColorArgb { get; set; }
+        [StringLength(7)]
+        public string ColorHex { get; set; }
 
         public DateTime? ArchivedOn { get; set; }
 

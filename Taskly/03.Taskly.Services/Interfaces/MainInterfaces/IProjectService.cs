@@ -6,13 +6,13 @@ namespace Taskly.Services.Interfaces
 {
     public interface IProjectService
     {
-        Task<string> AddProjectAsync(string title, int? colorArgb, string userId);
+        Task<string> AddProjectAsync(string title, string colorHex, string userId);
 
         Task<string> DeleteProjectAsync(int projectId);
 
         Task<string> UpdateProjectTitleAsync(int projectId, string title);
         
-        Task<string> UpdateProjectColorAsync(int projectId, int? colorArgb);
+        Task<string> UpdateProjectColorAsync(int projectId, string colorHex);
 
         Task<string> ArchiveProjectAsync(int projectId);
 
