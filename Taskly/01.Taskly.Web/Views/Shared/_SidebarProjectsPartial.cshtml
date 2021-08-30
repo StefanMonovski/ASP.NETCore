@@ -1,0 +1,15 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/css/sidebar.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="sidebar">
+        <a class="table-active" onclick="location.href = '@Url.Action("All", "Projects")'">All</a>
+        <a onclick="location.href = '@Url.Action("Personal", "Projects")'">Personal</a>
+        <a onclick="location.href = '@Url.Action("Collaborative", "Projects")'">Collaborative</a>
+        <a onclick="location.href = '@Url.Action("Favorite", "Projects")'">Favorite</a>
+    </div>
+</body>
+</html>
