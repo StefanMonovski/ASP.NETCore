@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Taskly.Web.Controllers
 {
@@ -14,8 +15,14 @@ namespace Taskly.Web.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Display", "Projects", new { filter = "All" });
+            }
+
             return View();
         }
 

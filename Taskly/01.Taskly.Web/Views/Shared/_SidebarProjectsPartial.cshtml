@@ -6,10 +6,10 @@
 </head>
 <body>
     <div class="sidebar">
-        <a class="table-active" onclick="location.href = '@Url.Action("All", "Projects")'">All</a>
-        <a onclick="location.href = '@Url.Action("Personal", "Projects")'">Personal</a>
-        <a onclick="location.href = '@Url.Action("Collaborative", "Projects")'">Collaborative</a>
-        <a onclick="location.href = '@Url.Action("Favorite", "Projects")'">Favorite</a>
+        <a class="table-active" onclick="location.href = '@Url.Action("Display", "Projects", new { filter = "All" })'">All</a>
+        <a onclick="location.href = '@Url.Action("Display", "Projects", new { filter = "Personal" })'">Personal</a>
+        <a onclick="location.href = '@Url.Action("Display", "Projects", new { filter = "Collaborative" })'">Collaborative</a>
+        <a onclick="location.href = '@Url.Action("Display", "Projects", new { filter = "Favorite" })'">Favorite</a>
     </div>
 </body>
 </html>

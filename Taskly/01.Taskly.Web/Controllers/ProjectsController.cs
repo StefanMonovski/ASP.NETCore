@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Security.Claims;
+using Taskly.Services.DataTransferObjects;
 using Taskly.Services.Interfaces;
 using Taskly.Web.ViewModels;
 
@@ -21,50 +22,26 @@ namespace Taskly.Web.Controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult All()
+        public IActionResult Display(string filter)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var projects = projectService.GetAllProjects(userId);
-            var projectsViewModel = mapper.Map<List<ProjectsViewModel>>(projects);
+            var projects = new List<ProjectDto>();
+            switch (filter)
+            {
+                case "All": projects = projectService.GetAllProjects(userId); break;
+                case "Personal": projects = projectService.GetAllPersonalProjects(userId); break;
+                case "Collaborative": projects = projectService.GetAllCollaborativeProjects(userId); break;
+                case "Favorite": projects = projectService.GetAllFavoriteProjects(userId); break;
+            }
 
-            return View(projectsViewModel);
-        }
+            var displayViewModel = new DisplayViewModel()
+            {
+                Filter = filter,
+                Projects = mapper.Map<List<ProjectsViewModel>>(projects)
+            };
 
-        [HttpGet]
-        [Authorize]
-        public IActionResult Personal()
-        {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var projects = projectService.GetAllPersonalProjects(userId);
-            var projectsViewModel = mapper.Map<List<ProjectsViewModel>>(projects);
-
-            return View(projectsViewModel);
-        }
-
-        [HttpGet]
-        [Authorize]
-        public IActionResult Favorite()
-        {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var projects = projectService.GetAllFavoriteProjects(userId);
-            var projectsViewModel = mapper.Map<List<ProjectsViewModel>>(projects);
-
-            return View(projectsViewModel);
-        }
-
-        [HttpGet]
-        [Authorize]
-        public IActionResult Collaborative()
-        {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var projects = projectService.GetAllCollaborativeProjects(userId);
-            var projectsViewModel = mapper.Map<List<ProjectsViewModel>>(projects);
-
-            return View(projectsViewModel);
+            return View(displayViewModel);
         }
     }
 }
