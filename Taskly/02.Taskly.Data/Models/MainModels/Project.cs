@@ -18,7 +18,7 @@ namespace Taskly.Data.Models
         public string Guid { get; private set; }
 
         [Required]
-        [MaxLength(100)]
+        [MaxLength(20)]
         public string Title { get; set; }
 
         [StringLength(7)]
