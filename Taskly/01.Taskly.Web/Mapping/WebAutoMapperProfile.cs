@@ -10,6 +10,7 @@ namespace Taskly.Web.Mapping
         {
             CreateMap<ProjectDto, ProjectsViewModel>();
             CreateMap<ProjectDto, ProjectViewModel>();
+            CreateMap<TaskDto, TaskViewModel>();
         }
     }
 }

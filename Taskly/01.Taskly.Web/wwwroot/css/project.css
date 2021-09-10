@@ -1,0 +1,29 @@
+﻿.list-group li {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 11.5px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dot {
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.projectMenuItem {
+    height: 28px;
+    width: 28px;
+}
+
+@media (max-width: 425px) {
+    .list-group #title {
+        width: 100%;
+    }
+
+    .projectMenuItem {
+        border-image-width: 10px;
+    }
+}

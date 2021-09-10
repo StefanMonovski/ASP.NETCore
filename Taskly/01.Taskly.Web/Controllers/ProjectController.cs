@@ -1,19 +1,25 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Taskly.Services.Interfaces;
 using Taskly.Web.InputModels;
+using Taskly.Web.ViewModels;
 
 namespace Taskly.Web.Controllers
 {
     public class ProjectController : Controller
     {
         private readonly IProjectService projectService;
+        private readonly IProjectUserService projectUserService;
+        private readonly IMapper mapper;
 
-        public ProjectController(IProjectService projectService)
+        public ProjectController(IProjectService projectService, IProjectUserService projectUserService, IMapper mapper)
         {
             this.projectService = projectService;
+            this.projectUserService = projectUserService;
+            this.mapper = mapper;
         }
 
         [HttpPost]
@@ -29,6 +35,17 @@ namespace Taskly.Web.Controllers
             string guid = await projectService.AddProjectAsync(inputModel.Title, inputModel.ColorPicker, userId);
 
             return RedirectToAction("Current", new { guid });
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult Current(string guid)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var project = projectService.GetProjectByGuid(guid, userId);
+            var projectViewModel = mapper.Map<ProjectViewModel>(project);
+
+            return View(projectViewModel);
         }
     }
 }

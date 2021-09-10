@@ -1,0 +1,78 @@
+﻿@model Taskly.Web.ViewModels.ProjectViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="~/css/project.css" rel="stylesheet" />
+    <style>
+        .dot {
+            background-color: @Model.ColorHex;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+
+        <ul class="list-group">
+            <li class="list-group-item list-group-item">
+
+                <div id="title">
+                    @Model.Title
+                </div>
+
+                <div id="createTaskProject" class="projectMenuItem">
+                    <partial name="_CreateTaskModalPartial.cshtml" model="new Taskly.Web.InputModels.TaskInputModel() { ProjectId = Model.Id }" />
+                </div>
+
+                <div id="notesProject" class="projectMenuItem">
+                    <a href="@Url.Action("Notes", "Project")">
+                        <img src="~/img/note.svg" alt="Notes" />
+                    </a>
+                </div>
+
+                <div id="editProject" class="projectMenuItem">
+                    <partial name="_ProjectEditModalPartial.cshtml" />
+                </div>
+
+                <div id="usersProject" class="projectMenuItem">
+                    <partial name="_ProjectUsersModalPartial.cshtml" />
+                </div>
+
+                <div id="favoriteProject" class="projectMenuItem">
+                    <partial name="_ProjectFavoriteModalPartial.cshtml" model="new Taskly.Web.ViewModels.FavoriteViewModel() { Id = Model.Id, Guid = Model.Guid, Title = Model.Title, IsFavorite = Model.IsFavorite }" />
+                </div>
+
+                <div id="colorProject" class="projectMenuItem">
+                    <span class="dot"></span>
+                </div>
+
+            </li>
+        </ul>
+
+        @if (Model.Tasks.Count == 0)
+        {
+            <div class="alert" style="text-align: center; border-radius: 3px; margin-top: 10px; padding: 20px; background-color: @Model.ColorHex">
+                <h3 style="color:@Model.ColorHex; filter: brightness(0.35)">You currently have no tasks</h3>
+            </div>
+        }
+        else
+        {
+            <div class="list-group list-group-flush" style="margin-top: 20px;">
+                @foreach (var task in Model.Tasks)
+                {
+                    <a class="list-group-item list-group-item">
+                        @task.Title
+                    </a>
+                }
+            </div>
+        }
+
+    </div>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial.cshtml" />
+    }
+</body>
+</html>
