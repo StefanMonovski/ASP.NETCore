@@ -47,5 +47,26 @@ namespace Taskly.Web.Controllers
 
             return View(projectViewModel);
         }
+
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddToFavorite(int projectId, string projectGuid)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            await projectUserService.AddProjectToUserFavoritesAsync(projectId, userId);
+
+            return RedirectToAction("Current", new { guid = projectGuid });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> RemoveFromFavorite(int projectId, string projectGuid)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            await projectUserService.RemoveProjectFromUserFavoritesAsync(projectId, userId);
+
+            return RedirectToAction("Current", new { guid = projectGuid });
+        }
     }
 }

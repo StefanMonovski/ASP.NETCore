@@ -1,0 +1,66 @@
+﻿@model Taskly.Web.ViewModels.FavoriteViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        p {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    @if (!Model.IsFavorite)
+    {
+        <input type="image" src="~/img/heart-black.svg" data-toggle="modal" data-target="#favorite" alt="Favorite" />
+    }
+    else if (Model.IsFavorite)
+    {
+        <input type="image" src="~/img/heart-red.svg" data-toggle="modal" data-target="#favorite" alt="Favorite" />
+    }
+
+    <div class="modal fade" id="favorite" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title" id="title">Favorites</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    @if (!Model.IsFavorite)
+                    {
+                        <form method="post" id="formFavorite" asp-action="AddToFavorite" asp-controller="Project"></form>
+                        <p>Do you want to add "@Model.Title" to your favorite projects?</p>
+                    }
+                    else if (Model.IsFavorite)
+                    {
+                        <form method="post" id="formFavorite" asp-action="RemoveFromFavorite" asp-controller="Project"></form>
+                        <p>Do you want to remove "@Model.Title" from your favorite projects?</p>
+                    }
+                    <input form="formFavorite" type="hidden" name="projectId" value="@Model.Id" />
+                    <input form="formFavorite" type="hidden" name="projectGuid" value="@Model.Guid" />
+                </div>
+
+                <div class="modal-footer">
+                    @if (!Model.IsFavorite)
+                    {
+                        <button type="submit" form="formFavorite" class="btn btn-secondary">Add</button>
+                    }
+                    else if (Model.IsFavorite)
+                    {
+                        <button type="submit" form="formFavorite" class="btn btn-secondary">Remove</button>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
