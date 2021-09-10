@@ -5,7 +5,7 @@ namespace Taskly.Web.InputModels
     public class ProjectInputModel
     {
         [Required(ErrorMessage = "Title is required.")]
-        [MaxLength(100, ErrorMessage = "Title must be at max 100 characters long.")]
+        [MaxLength(20, ErrorMessage = "Title must be at max 20 characters long.")]
         public string Title { get; set; }
 
         [Required]
