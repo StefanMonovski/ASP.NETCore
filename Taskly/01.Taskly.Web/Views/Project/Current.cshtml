@@ -21,9 +21,9 @@
                 <div id="title">
                     @Model.Title
                 </div>
-
+                 
                 <div id="createTaskProject" class="projectMenuItem">
-                    <partial name="_CreateTaskModalPartial.cshtml" model="new Taskly.Web.InputModels.TaskInputModel() { ProjectId = Model.Id }" />
+                    <partial name="_CreateTaskModalPartial.cshtml" model="new Taskly.Web.InputModels.TaskInputModel() { ProjectId = Model.Id, ProjectGuid = Model.Guid }" />
                 </div>
 
                 <div id="notesProject" class="projectMenuItem">

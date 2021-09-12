@@ -1,0 +1,62 @@
+﻿@model Taskly.Web.InputModels.TaskInputModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#createTask').on('hidden.bs.modal', function () {
+                location.reload();
+            })
+        });
+    </script>
+</head>
+<body>
+
+    <input type="image" src="~/img/add-square.svg" data-toggle="modal" data-target="#createTask" alt="Create task" />
+
+    <div class="modal fade" id="createTask" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="title">Create task</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <form method="post" id="formCreateTask" asp-action="Add" asp-controller="Task">
+                        <div class="form-group">
+                            <input asp-for="Title" class="form-control" placeholder="Title" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <textarea asp-for="Description" class="form-control" placeholder="Description"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" asp-for="ProjectId" value="@Model.ProjectId" />
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" asp-for="ProjectGuid" value="@Model.ProjectGuid" />
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" form="formCreateTask" class="btn btn-primary">Create</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
