@@ -4,6 +4,8 @@ namespace Taskly.Web.ViewModels
 {
     public class TaskViewModel
     {
+        public int Id { get; set; }
+
         public string Guid { get; set; }
 
         public string Title { get; set; }

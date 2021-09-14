@@ -21,7 +21,7 @@
                 <div id="title">
                     @Model.Title
                 </div>
-                 
+
                 <div id="createTaskProject" class="projectMenuItem">
                     <partial name="_CreateTaskModalPartial.cshtml" model="new Taskly.Web.InputModels.TaskInputModel() { ProjectId = Model.Id, ProjectGuid = Model.Guid }" />
                 </div>
@@ -59,14 +59,40 @@
         }
         else
         {
-            <div class="list-group list-group-flush" style="margin-top: 20px;">
-                @foreach (var task in Model.Tasks)
+            <h4 style="margin-top: 10px;">Incompleted tasks</h4>
+            if (Model.Tasks.Where(x => x.IsCompleted == false).Count() == 0)
+            {
+                <h5>All tasks are completed</h5>
+            }
+            <ul class="list-group list-group-flush">
+                @foreach (var task in Model.Tasks.Where(x => x.IsCompleted == false))
                 {
-                    <a class="list-group-item list-group-item">
+                    <li class="list-group-item list-group-item-action">
                         @task.Title
-                    </a>
+                        <form method="post" id="formCompleteTask" asp-action="Complete" asp-controller="Task">
+                            <input type="hidden" name="taskId" value="@task.Id" />
+                            <input type="hidden" name="projectGuid" value="@Model.Guid" />
+                        </form>
+                        <a onclick="document.getElementById('formCompleteTask').submit();">
+                            <img src="~/img/circle.svg" alt="Complete" />
+                        </a>
+                    </li>
                 }
-            </div>
+            </ul>
+
+            <h4 style="margin-top: 10px;">Completed tasks</h4>
+            if (Model.Tasks.Where(x => x.IsCompleted == true).Count() == 0)
+            {
+                <h5>No tasks are completed</h5>
+            }
+            <ul class="list-group list-group-flush">
+                @foreach (var task in Model.Tasks.Where(x => x.IsCompleted == true))
+                {
+                    <li class="list-group-item">
+                        <strike>@task.Title</strike>
+                    </li>
+                }
+            </ul>
         }
 
     </div>
