@@ -39,5 +39,14 @@ namespace Taskly.Web.Controllers
 
             return RedirectToAction("Current", "Project", new { guid = projectGuid });
         }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Uncomplete(int taskId, string projectGuid)
+        {
+            await taskService.UncompleteTaskAsync(taskId);
+
+            return RedirectToAction("Current", "Project", new { guid = projectGuid });
+        }
     }
 }

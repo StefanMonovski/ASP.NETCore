@@ -90,6 +90,13 @@
                 {
                     <li class="list-group-item">
                         <strike>@task.Title</strike>
+                        <form method="post" id="formUncompleteTask" asp-action="Uncomplete" asp-controller="Task">
+                            <input type="hidden" name="taskId" value="@task.Id" />
+                            <input type="hidden" name="projectGuid" value="@Model.Guid" />
+                        </form>
+                        <a onclick="document.getElementById('formUncompleteTask').submit();">
+                            <img src="~/img/check-circle.svg" alt="Uncomplete" />
+                        </a>
                     </li>
                 }
             </ul>
