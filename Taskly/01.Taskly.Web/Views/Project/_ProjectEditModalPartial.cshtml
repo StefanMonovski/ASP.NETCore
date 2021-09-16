@@ -1,0 +1,97 @@
+﻿@model Taskly.Web.ViewModels.ProjectEditModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
+    <script src="/js/jquery.simplecolorpicker.js"></script>
+
+    <link rel="stylesheet" href="/css/jquery.simplecolorpicker.css">
+
+    <script>
+        $(document).ready(function () {
+            $("[name='saveButton']").click(function () {
+                $('#editProjectModal').on('hidden.bs.modal', function () {
+                    location.reload();
+                })
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <input type="image" src="~/img/edit.svg" data-toggle="modal" data-target="#editProjectModal" alt="Edit" />
+
+    <div class="modal fade" id="editProjectModal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="title">Edit project</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <form method="post" id="formEditTask" asp-action="Edit" asp-controller="Project" autocomplete="off">
+                        <input type="hidden" name="Id" value="@Model.Id" />
+                        <input type="hidden" name="Guid" value="@Model.Guid" />
+                        <div class="form-group">
+                            <label asp-for="Title"></label>
+                            <input asp-for="Title" onfocus="this.value=''" class="form-control" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <select asp-for="ColorPicker" name="colorpicker">
+                                <option value="#EF5350"></option>
+                                <option value="#EC407A"></option>
+                                <option value="#AB47BC"></option>
+                                <option value="#7E57C2"></option>
+                                <option value="#5C6BC0"></option>
+                                <option value="#29B6F6"></option>
+                                <option value="#26C6DA"></option>
+                                <option value="#26A69A"></option>
+                                <option value="#66BB6A"></option>
+                                <option value="#9CCC65"></option>
+                                <option value="#FFEE58"></option>
+                                <option value="#FFCA28"></option>
+                                <option value="#FFA726"></option>
+                                <option value="#FF7043"></option>
+                                <option value="#8D6E63"></option>
+                                <option value="#78909C"></option>
+                                <option value="#B71C1C"></option>
+                                <option value="#880E4F"></option>
+                                <option value="#4A148C"></option>
+                                <option value="#311B92"></option>
+                                <option value="#0D47A1"></option>
+                                <option value="#01579B"></option>
+                                <option value="#006064"></option>
+                                <option value="#004D40"></option>
+                                <option value="#1B5E20"></option>
+                                <option value="#827717"></option>
+                                <option value="#F57F17"></option>
+                                <option value="#FF6F00"></option>
+                                <option value="#E65100"></option>
+                                <option value="#BF360C"></option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                 
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button name="saveButton" type="submit" form="formEditTask" class="btn btn-primary">Save</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('select[name="colorpicker"]').simplecolorpicker();
+    </script>
+</body>
+</html>

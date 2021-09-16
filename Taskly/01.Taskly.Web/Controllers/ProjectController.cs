@@ -68,5 +68,20 @@ namespace Taskly.Web.Controllers
 
             return RedirectToAction("Current", new { guid = projectGuid });
         }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Edit(ProjectEditModel editModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            await projectService.UpdateProjectTitleAsync(editModel.Id, editModel.Title);
+            await projectService.UpdateProjectColorAsync(editModel.Id, editModel.ColorPicker);
+
+            return RedirectToAction("Current", new { guid = editModel.Guid });
+        }
     }
 }
