@@ -14,14 +14,14 @@
 
     @if (!Model.IsFavorite)
     {
-        <input type="image" src="~/img/heart-black.svg" data-toggle="modal" data-target="#favorite" alt="Favorite" />
+        <input type="image" src="~/img/heart-black.svg" data-toggle="modal" data-target="#favoriteProjectModal" alt="Favorite" />
     }
     else if (Model.IsFavorite)
     {
-        <input type="image" src="~/img/heart-red.svg" data-toggle="modal" data-target="#favorite" alt="Favorite" />
+        <input type="image" src="~/img/heart-red.svg" data-toggle="modal" data-target="#favoriteProjectModal" alt="Favorite" />
     }
 
-    <div class="modal fade" id="favorite" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal fade" id="favoriteProjectModal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
 

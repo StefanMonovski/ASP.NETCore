@@ -9,17 +9,19 @@
 
     <script>
         $(document).ready(function () {
-            $('#createTask').on('hidden.bs.modal', function () {
-                location.reload();
-            })
+            $("[name='saveButton']").click(function () {
+                $('#createTaskModal').on('hidden.bs.modal', function () {
+                    location.reload();
+                })
+            });
         });
     </script>
 </head>
 <body>
 
-    <input type="image" src="~/img/add-square.svg" data-toggle="modal" data-target="#createTask" alt="Create task" />
+    <input type="image" src="~/img/add-square.svg" data-toggle="modal" data-target="#createTaskModal" alt="Create task" />
 
-    <div class="modal fade" id="createTask" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal fade" id="createTaskModal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
 
@@ -51,7 +53,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" form="formCreateTask" class="btn btn-primary">Create</button>
+                    <button name="saveButton" type="submit" form="formCreateTask" class="btn btn-primary">Create</button>
                 </div>
 
             </div>

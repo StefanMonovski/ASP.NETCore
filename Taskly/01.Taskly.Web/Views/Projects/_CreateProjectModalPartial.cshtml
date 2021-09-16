@@ -12,17 +12,19 @@
 
     <script>
         $(document).ready(function () {
-            $('#createProject').on('hidden.bs.modal', function () {
-                location.reload();
-            })
+            $("[name='saveButton']").click(function () {
+                $('#createProjectModal').on('hidden.bs.modal', function () {
+                    location.reload();
+                })
+            });
         });
     </script>
 </head>
 <body>
 
-    <input type="image" src="~/img/add-circle.svg" data-toggle="modal" data-target="#createProject" alt="Create project" />
+    <input type="image" src="~/img/add-circle.svg" data-toggle="modal" data-target="#createProjectModal" alt="Create project" />
 
-    <div class="modal fade" id="createProject" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal fade" id="createProjectModal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
 
@@ -78,7 +80,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" form="formCreateProject" class="btn btn-primary">Create</button>
+                    <button name="saveButton" type="submit" form="formCreateProject" class="btn btn-primary">Create</button>
                 </div>
 
             </div>
