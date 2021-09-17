@@ -65,18 +65,20 @@
                 <h5>All tasks are completed</h5>
             }
             <ul class="list-group list-group-flush">
+                @{ int i = 0; }
                 @foreach (var task in Model.Tasks.Where(x => x.IsCompleted == false))
                 {
                     <li class="list-group-item list-group-item-action">
                         @task.Title
-                        <form method="post" id="formCompleteTask" asp-action="Complete" asp-controller="Task">
+                        <form method="post" id="formCompleteTask[@i]" asp-action="Complete" asp-controller="Task">
                             <input type="hidden" name="taskId" value="@task.Id" />
                             <input type="hidden" name="projectGuid" value="@Model.Guid" />
                         </form>
-                        <a onclick="document.getElementById('formCompleteTask').submit();">
+                        <a onclick="document.getElementById('formCompleteTask[@i]').submit();">
                             <img src="~/img/circle.svg" alt="Complete" />
                         </a>
                     </li>
+                    i++;
                 }
             </ul>
 
@@ -86,18 +88,20 @@
                 <h5>No tasks are completed</h5>
             }
             <ul class="list-group list-group-flush">
+                @{ int j = 0; }
                 @foreach (var task in Model.Tasks.Where(x => x.IsCompleted == true))
                 {
                     <li class="list-group-item">
                         <strike>@task.Title</strike>
-                        <form method="post" id="formUncompleteTask" asp-action="Uncomplete" asp-controller="Task">
+                        <form method="post" id="formUncompleteTask[@j]" asp-action="Uncomplete" asp-controller="Task">
                             <input type="hidden" name="taskId" value="@task.Id" />
                             <input type="hidden" name="projectGuid" value="@Model.Guid" />
                         </form>
-                        <a onclick="document.getElementById('formUncompleteTask').submit();">
+                        <a onclick="document.getElementById('formUncompleteTask[@j]').submit();">
                             <img src="~/img/check-circle.svg" alt="Uncomplete" />
                         </a>
                     </li>
+                    j++;
                 }
             </ul>
         }
