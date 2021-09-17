@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Taskly.Web.ViewModels
+namespace Taskly.Web.EditModels
 {
     public class ProjectEditModel
     {

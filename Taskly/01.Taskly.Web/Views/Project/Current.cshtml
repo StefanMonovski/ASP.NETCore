@@ -33,7 +33,7 @@
                 </div>
 
                 <div id="editProject" class="projectMenuItem">
-                    <partial name="_ProjectEditModalPartial.cshtml" model="new Taskly.Web.ViewModels.ProjectEditModel() { Id = Model.Id, Guid = Model.Guid, Title = Model.Title, ColorPicker = Model.ColorHex }" />
+                    <partial name="_ProjectEditModalPartial.cshtml" model="new Taskly.Web.EditModels.ProjectEditModel() { Id = Model.Id, Guid = Model.Guid, Title = Model.Title, ColorPicker = Model.ColorHex }" />
                 </div>
 
                 <div id="usersProject" class="projectMenuItem">

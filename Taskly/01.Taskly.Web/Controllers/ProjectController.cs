@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Taskly.Services.Interfaces;
+using Taskly.Web.EditModels;
 using Taskly.Web.InputModels;
 using Taskly.Web.ViewModels;
 
