@@ -4,8 +4,10 @@ namespace Taskly.Web.InputModels
 {
     public class TaskInputModel
     {
+        [Required]
         public int ProjectId { get; set; }
 
+        [Required]
         public string ProjectGuid { get; set; }
 
         [Required(ErrorMessage = "Title is required.")]
