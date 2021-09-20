@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Taskly.Data.Models;
 using Taskly.Services.Interfaces;
 using Taskly.Web.EditModels;
 using Taskly.Web.InputModels;
@@ -15,12 +17,14 @@ namespace Taskly.Web.Controllers
         private readonly IProjectService projectService;
         private readonly IProjectUserService projectUserService;
         private readonly IMapper mapper;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public ProjectController(IProjectService projectService, IProjectUserService projectUserService, IMapper mapper)
+        public ProjectController(IProjectService projectService, IProjectUserService projectUserService, IMapper mapper, UserManager<ApplicationUser> userManager)
         {
             this.projectService = projectService;
             this.projectUserService = projectUserService;
             this.mapper = mapper;
+            this.userManager = userManager;
         }
 
         [HttpPost]
@@ -83,6 +87,21 @@ namespace Taskly.Web.Controllers
             await projectService.UpdateProjectColorAsync(editModel.Id, editModel.ColorPicker);
 
             return RedirectToAction("Current", new { guid = editModel.Guid });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddUser(ProjectUserInputModel inputModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            ApplicationUser user = await userManager.FindByNameAsync(inputModel.Username);
+            await projectUserService.AddUserToProjectAsync(inputModel.ProjectId, user.Id, inputModel.IsCollaborator);
+
+            return RedirectToAction("Current", new { guid = inputModel.ProjectGuid });
         }
     }
 }

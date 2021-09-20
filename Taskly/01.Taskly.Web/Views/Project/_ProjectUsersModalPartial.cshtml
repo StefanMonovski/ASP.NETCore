@@ -1,0 +1,59 @@
+﻿@model Taskly.Web.InputModels.ProjectUserInputModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("[name='saveButton']").click(function () {
+                $('#usersProjectModal').on('hidden.bs.modal', function () {
+                    location.reload();
+                })
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <input type="image" src="~/img/user.svg" data-toggle="modal" data-target="#usersProjectModal" alt="Users" />
+
+    <div class="modal fade" id="usersProjectModal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="title">Users</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <form method="post" id="formUsersProject" asp-action="AddUser" asp-controller="Project">
+                        <input type="hidden" name="ProjectId" value="@Model.ProjectId" />
+                        <input type="hidden" name="ProjectGuid" value="@Model.ProjectGuid" />
+                        <div class="form-group">
+                            <input asp-for="Username" class="form-control" placeholder="Username" />
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </div>
+                        <div class="custom-control custom-switch">
+                            <input asp-for="IsCollaborator" type="checkbox" class="custom-control-input" id="switchIsCollaborator">
+                            <label asp-for="IsCollaborator" class="custom-control-label unselectable" for="switchIsCollaborator">Add as collaborator</label>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button name="saveButton" type="submit" form="formUsersProject" class="btn btn-primary">Add</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

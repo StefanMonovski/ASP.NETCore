@@ -37,7 +37,7 @@
                 </div>
 
                 <div id="usersProject" class="projectMenuItem">
-                    <partial name="_ProjectUsersModalPartial.cshtml" />
+                    <partial name="_ProjectUsersModalPartial.cshtml" model="new Taskly.Web.InputModels.ProjectUserInputModel() { ProjectId = Model.Id, ProjectGuid = Model.Guid }" />
                 </div>
 
                 <div id="favoriteProject" class="projectMenuItem">
