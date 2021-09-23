@@ -58,6 +58,7 @@ namespace Taskly.Web
             services.AddTransient<IProjectService, ProjectService>();
             services.AddTransient<IProjectUserService, ProjectUserService>();
             services.AddTransient<ITaskService, TaskService>();
+            services.AddTransient<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline and apply migrations.

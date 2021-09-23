@@ -19,6 +19,7 @@ namespace Taskly.Services.Mapping
             CreateMap<Project, ProjectDto>();
             CreateMap<ProjectUser, ProjectUserDto>();
             CreateMap<Task, TaskDto>();
+            CreateMap<ApplicationUser, UserDto>();
         }
     }
 }
