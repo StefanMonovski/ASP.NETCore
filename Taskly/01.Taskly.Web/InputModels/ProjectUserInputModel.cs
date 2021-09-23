@@ -12,6 +12,8 @@ namespace Taskly.Web.InputModels
         [Required]
         public string ProjectGuid { get; set; }
         
+        [UsernameExists]
+        [UsernameNotCurrent]
         [Remote("UsernameIsValid", "Project")]
         [Required(ErrorMessage = "Username is required.")]
         public string Username { get; set; }
