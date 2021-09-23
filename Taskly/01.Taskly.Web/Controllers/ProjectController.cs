@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Taskly.Data.Models;
+using Taskly.Services.DataTransferObjects;
 using Taskly.Services.Interfaces;
 using Taskly.Web.EditModels;
 using Taskly.Web.InputModels;
@@ -16,15 +15,15 @@ namespace Taskly.Web.Controllers
     {
         private readonly IProjectService projectService;
         private readonly IProjectUserService projectUserService;
+        private readonly IUserService userService;
         private readonly IMapper mapper;
-        private readonly UserManager<ApplicationUser> userManager;
 
-        public ProjectController(IProjectService projectService, IProjectUserService projectUserService, IMapper mapper, UserManager<ApplicationUser> userManager)
+        public ProjectController(IProjectService projectService, IProjectUserService projectUserService, IUserService userService, IMapper mapper)
         {
             this.projectService = projectService;
             this.projectUserService = projectUserService;
+            this.userService = userService;
             this.mapper = mapper;
-            this.userManager = userManager;
         }
 
         [HttpPost]
@@ -98,10 +97,30 @@ namespace Taskly.Web.Controllers
                 return RedirectToAction("Error", "Home");
             }
 
-            ApplicationUser user = await userManager.FindByNameAsync(inputModel.Username);
-            await projectUserService.AddUserToProjectAsync(inputModel.ProjectId, user.Id, inputModel.IsCollaborator);
+            string userId = userService.GetUserByUsername(inputModel.Username).Id;
+            await projectUserService.AddUserToProjectAsync(inputModel.ProjectId, userId, inputModel.IsCollaborator);
 
             return RedirectToAction("Current", new { guid = inputModel.ProjectGuid });
+        }
+
+        [HttpGet]
+        [HttpPost]
+        [Authorize]
+        public IActionResult UsernameIsValid(string username)
+        {
+            string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            UserDto user = userService.GetUserByUsername(username);
+
+            if (user == null)
+            {
+                return Json($"Username {username} does not exist.");
+            }
+            else if (user.Id == currentUserId)
+            {
+                return Json("Cannot add own username.");
+            }
+
+            return Json(true);
         }
     }
 }

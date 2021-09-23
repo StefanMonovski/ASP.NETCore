@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
+using Taskly.Web.Validation;
 
 namespace Taskly.Web.InputModels
 {
@@ -10,6 +12,7 @@ namespace Taskly.Web.InputModels
         [Required]
         public string ProjectGuid { get; set; }
         
+        [Remote("UsernameIsValid", "Project")]
         [Required(ErrorMessage = "Username is required.")]
         public string Username { get; set; }
 
