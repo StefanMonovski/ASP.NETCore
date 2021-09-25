@@ -8,11 +8,12 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
     <script src="/js/jquery.simplecolorpicker.js"></script>
 
-    <link rel="stylesheet" href="/css/jquery.simplecolorpicker.css">
+    <link href="/css/jquery.simplecolorpicker.css" rel="stylesheet" >
+    <link href="/css/typetext.css" rel="stylesheet" />
 
     <script>
         $(document).ready(function () {
-            $("[name='saveButton']").click(function () {
+            $("[name='saveButton']" && "#confimationContainer").click(function () {
                 $('#editProjectModal').on('hidden.bs.modal', function () {
                     location.reload();
                 })
@@ -36,7 +37,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <form method="post" id="formEditTask" asp-action="Edit" asp-controller="Project" autocomplete="off">
+                    <form method="post" id="formEditProject" asp-action="Edit" asp-controller="Project" autocomplete="off">
                         <input type="hidden" name="Id" value="@Model.Id" />
                         <input type="hidden" name="Guid" value="@Model.Guid" />
                         <div class="form-group">
@@ -79,11 +80,25 @@
                             </select>
                         </div>
                     </form>
+
+                    <form method="post" id="formDeleteProject" asp-action="Delete" asp-controller="Project">
+                        <ul class="list-group">
+                            <li id="confimationContainer" class="list-group-item list-group-item-action" onclick="confirmDeleteProject()" style="cursor: pointer; border-width: 2px;">
+                                <input type="hidden" name="projectId" value="@Model.Id" />
+                                <span style="width: fit-content;">
+                                    <span class="unselectable typetext" style="line-height: 28px; height: 28px;">
+                                        <img src="~/img/delete.svg" alt="Delete" />
+                                        <b id="deleteText" style="display: inline-block; vertical-align: middle; color: black;">Delete project</b>
+                                    </span>
+                                </span>
+                            </li>
+                        </ul>
+                    </form>
                 </div>
-                 
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button name="saveButton" type="submit" form="formEditTask" class="btn btn-primary">Save</button>
+                    <button name="saveButton" type="submit" form="formEditProject" class="btn btn-primary">Save</button>
                 </div>
 
             </div>
@@ -92,6 +107,24 @@
 
     <script>
         $('select[name="colorpicker"]').simplecolorpicker();
+    </script>
+
+    <script>
+        var count = 0;
+        function confirmDeleteProject() {
+            var x = document.getElementById('confimationContainer');
+            x.style.borderColor = "red";
+            count++;
+
+            if (count == 2) {
+                document.getElementById('formDeleteProject').submit();
+            }
+            else {
+                let p = document.createElement("p");
+                p.textContent += "Click to confirm deleting project...";
+                $(".typetext").append(p);
+            }
+        }
     </script>
 </body>
 </html>

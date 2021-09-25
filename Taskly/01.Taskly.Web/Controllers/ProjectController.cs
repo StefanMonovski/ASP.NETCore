@@ -90,6 +90,15 @@ namespace Taskly.Web.Controllers
 
         [HttpPost]
         [Authorize]
+        public async Task<IActionResult> Delete(int projectId)
+        {
+            await projectService.DeleteProjectAsync(projectId);
+
+            return RedirectToAction("Display", "Projects", new { filter = "All" });
+        }
+
+        [HttpPost]
+        [Authorize]
         public async Task<IActionResult> AddUser(ProjectUserInputModel inputModel)
         {
             if (!ModelState.IsValid)
