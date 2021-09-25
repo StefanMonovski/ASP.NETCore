@@ -26,6 +26,8 @@ namespace Taskly.Services.Interfaces
 
         List<ProjectDto> GetAllFavoriteProjects(string userId);
 
+        List<ProjectDto> GetAllArchivedProjects(string userId);
+
         ProjectDto GetProjectById(int projectId, string userId);
 
         ProjectDto GetProjectByGuid(string projectGuid, string userId);

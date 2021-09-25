@@ -114,6 +114,7 @@ namespace Taskly.Services.Services
             List<ProjectDto> projectsDto = context.ProjectsUsers
                 .Where(x => x.UserId == userId)
                 .Select(x => x.Project)
+                .Where(x => x.IsArchived == false)
                 .ProjectTo<ProjectDto>(mapper.ConfigurationProvider)
                 .ToList();
 
@@ -125,7 +126,7 @@ namespace Taskly.Services.Services
             List<ProjectDto> projectsDto = context.ProjectsUsers
                 .Where(x => x.UserId == userId)
                 .Select(x => x.Project)
-                .Where(x => x.IsPersonal == true)
+                .Where(x => x.IsPersonal == true && x.IsArchived == false)
                 .ProjectTo<ProjectDto>(mapper.ConfigurationProvider)
                 .ToList();
 
@@ -137,7 +138,7 @@ namespace Taskly.Services.Services
             List<ProjectDto> projectsDto = context.ProjectsUsers
                 .Where(x => x.UserId == userId)
                 .Select(x => x.Project)
-                .Where(x => x.IsPersonal == false)
+                .Where(x => x.IsPersonal == false && x.IsArchived == false)
                 .ProjectTo<ProjectDto>(mapper.ConfigurationProvider)
                 .ToList();
 
@@ -149,6 +150,19 @@ namespace Taskly.Services.Services
             List<ProjectDto> projectsDto = context.ProjectsUsers
                 .Where(x => x.UserId == userId && x.IsProjectFavorite == true)
                 .Select(x => x.Project)
+                .Where(x => x.IsArchived == false)
+                .ProjectTo<ProjectDto>(mapper.ConfigurationProvider)
+                .ToList();
+
+            return projectsDto;
+        }
+
+        public List<ProjectDto> GetAllArchivedProjects(string userId)
+        {
+            List<ProjectDto> projectsDto = context.ProjectsUsers
+                .Where(x => x.UserId == userId)
+                .Select(x => x.Project)
+                .Where(x => x.IsArchived == true)
                 .ProjectTo<ProjectDto>(mapper.ConfigurationProvider)
                 .ToList();
 
