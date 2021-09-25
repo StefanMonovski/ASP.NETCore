@@ -33,6 +33,7 @@ namespace Taskly.Web.Controllers
                 case "Personal": projects = projectService.GetAllPersonalProjects(userId); break;
                 case "Collaborative": projects = projectService.GetAllCollaborativeProjects(userId); break;
                 case "Favorite": projects = projectService.GetAllFavoriteProjects(userId); break;
+                case "Archived": projects = projectService.GetAllArchivedProjects(userId); break;
             }
 
             var displayViewModel = new DisplayViewModel()
