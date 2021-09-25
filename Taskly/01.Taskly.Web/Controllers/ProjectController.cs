@@ -90,6 +90,15 @@ namespace Taskly.Web.Controllers
 
         [HttpPost]
         [Authorize]
+        public async Task<IActionResult> Archive(int projectId)
+        {
+            await projectService.ArchiveProjectAsync(projectId);
+
+            return RedirectToAction("Display", "Projects", new { filter = "All" });
+        }
+
+        [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Delete(int projectId)
         {
             await projectService.DeleteProjectAsync(projectId);
