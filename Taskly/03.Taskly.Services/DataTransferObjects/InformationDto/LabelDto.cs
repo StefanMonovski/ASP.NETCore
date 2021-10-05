@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Taskly.Services.DataTransferObjects
+﻿namespace Taskly.Services.DataTransferObjects
 {
     public class LabelDto
     {
@@ -11,9 +9,5 @@ namespace Taskly.Services.DataTransferObjects
         public string ColorHex { get; set; }
 
         public string CreatorId { get; set; }
-
-        public List<TaskDto> Tasks { get; set; }
-
-        public List<NoteDto> Notes { get; set; }
     }
 }

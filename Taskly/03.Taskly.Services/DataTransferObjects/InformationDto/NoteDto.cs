@@ -18,8 +18,6 @@ namespace Taskly.Services.DataTransferObjects
 
         public int? ProjectId { get; set; }
 
-        public ProjectDto Project { get; set; }
-
         public List<LabelDto> Labels { get; set; }
     }
 }

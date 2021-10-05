@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using System.Collections.Generic;
 using Taskly.Data.Models;
 using Taskly.Services.DataTransferObjects;
 
@@ -19,6 +18,7 @@ namespace Taskly.Services.Mapping
             CreateMap<Project, ProjectDto>();
             CreateMap<ProjectUser, ProjectUserDto>();
             CreateMap<Task, TaskDto>();
+            CreateMap<Task, ChildTaskDto>();
             CreateMap<ApplicationUser, UserDto>();
         }
     }

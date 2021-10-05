@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Taskly.Services.DataTransferObjects
 {
-    public class TaskDto
+    public class ChildTaskDto
     {
         public int Id { get; set; }
 
@@ -17,15 +17,15 @@ namespace Taskly.Services.DataTransferObjects
 
         public bool IsCompleted { get; set; }
 
-        public string CreatorId { get; set; }       
+        public string CreatorId { get; set; }
 
         public int ProjectId { get; set; }
+
+        public int? ParentTaskId { get; set; }
 
         public int? PriorityId { get; set; }
 
         public PriorityDto Priority { get; set; }
-
-        public List<ChildTaskDto> ChildTasks { get; set; }
 
         public List<CommentDto> Comments { get; set; }
 

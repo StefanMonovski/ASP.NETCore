@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Taskly.Data.Enumerators;
+﻿using Taskly.Data.Enumerators;
 
 namespace Taskly.Services.DataTransferObjects
 {
@@ -10,7 +9,5 @@ namespace Taskly.Services.DataTransferObjects
         public PriorityTypeEnum PriorityType { get; set; }
 
         public PriorityColorEnum PriorityColor { get; set; }
-
-        public List<TaskDto> Tasks { get; set; }
     }
 }
