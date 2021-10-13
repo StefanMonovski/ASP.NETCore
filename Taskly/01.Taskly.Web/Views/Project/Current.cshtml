@@ -74,19 +74,43 @@
                 @{ int i = 0; }
                 @foreach (var task in Model.Tasks.Where(x => x.IsCompleted == false))
                 {
-                    <li class="list-group-item list-group-item-action">
+                    <li id="taskContainer[@i]" name="taskContainer" tabindex="-1" class="list-group-item list-group-item-action" onclick="loadCurrentTaskModalAjax('@task.Guid', event.target.id, @i);">
+
                         @task.Title
+
                         <form method="post" id="formCompleteTask[@i]" asp-action="Complete" asp-controller="Task">
                             <input type="hidden" name="taskId" value="@task.Id" />
                             <input type="hidden" name="projectGuid" value="@Model.Guid" />
                         </form>
-                        <a onclick="document.getElementById('formCompleteTask[@i]').submit();">
+
+                        <form method="post" id="formChangePriorityTask[@i]" asp-action="ChangePriority" asp-controller="Task">
+                            <input type="hidden" name="taskId" value="@task.Id" />
+                            <input type="hidden" name="projectGuid" value="@Model.Guid" />
+                            <input type="hidden" name="priorityId" value="" />
+                        </form>
+
+                        <div class="dropdown" style="margin-left: auto; padding-right: 20px;">
+                            <a id="priorityDropdown[@i]" name="priorityDropdown" data-toggle="dropdown" style="visibility: hidden;" onclick="lockDropdown('taskContainer[@i]', 'priorityDropdown[@i]', 'priorityDropdownItems[@i]', @i)">
+                                <img src="~/img/flag.svg" alt="Priority" />
+                            </a>
+
+                            <div id="priorityDropdownItems[@i]" class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" onclick="submitFormChangePriorityTask(1, @i)">First priority</a>
+                                <a class="dropdown-item" onclick="submitFormChangePriorityTask(2, @i)">Second priority</a>
+                                <a class="dropdown-item" onclick="submitFormChangePriorityTask(3, @i)">Third priority</a>
+                                <a class="dropdown-item" onclick="submitFormChangePriorityTask(4, @i)">None</a>
+                            </div>
+                        </div>
+
+                        <a name="completeCircle" onclick="document.getElementById('formCompleteTask[@i]').submit();">
                             <img src="~/img/circle.svg" alt="Complete" />
                         </a>
                     </li>
                     i++;
                 }
             </ul>
+
+            <div id="currentTaskPartialViewContainer"></div>
 
             <ul class="list-group">
                 <li style="width:fit-content; margin: 5px;">
@@ -138,6 +162,110 @@
                     x.style.display = "none";
                     document.getElementById("displayImage").src = "../../img/eye-off.svg";
                 }
+            }
+        </script>
+
+        <script>
+            function loadCurrentTaskModalAjax() {
+                let taskGuid = arguments[0];
+                let targetId = arguments[1];
+                let id = arguments[2];
+                $.ajax({
+                    url: "../Task/GetCurrentTaskById",
+                    type: "GET",
+                    datatype: "html",
+                    data: { taskGuid },
+                    success: function (response) {
+                        $('#currentTaskPartialViewContainer').html(response);
+                        if (`taskContainer[${id}]` === targetId) {
+                            $('#currentTaskModal').modal('show');
+                        }
+                    }
+                })
+            }
+        </script>
+
+        <script>
+            function submitFormChangePriorityTask() {
+                let priorityId = arguments[0];
+                let formId = arguments[1];
+                var form = document.getElementById(`formChangePriorityTask[${formId}]`);
+                $(form).children('[name="priorityId"]').val(priorityId);
+                form.submit();
+            }
+        </script>
+
+        <script>
+            var showOptionsOnHover = function () {
+                let id = arguments[0];
+                document.getElementById(`priorityDropdown[${id}]`).style.visibility = 'visible';
+            }
+
+            var hideOptionsOffHover = function () {
+                let id = arguments[0];
+                document.getElementById(`priorityDropdown[${id}]`).style.visibility = 'hidden';
+            }
+        </script>
+
+        <script>
+            var functionsShow = [];
+            var functionsHide = [];
+
+            $(document).ready(function () {
+                var elements = document.getElementsByName('taskContainer');
+
+                for (var i = 0; i < elements.length; i++) {
+                    let index = i;
+                    var showFunction = function () { showOptionsOnHover(index) };
+                    var hideFunction = function () { hideOptionsOffHover(index) };
+                    functionsShow.push(showFunction);
+                    functionsHide.push(hideFunction);
+
+                    elements[i].addEventListener('mouseover', showFunction);
+                    elements[i].addEventListener('mouseout', hideFunction);
+                }
+            });
+        </script>
+
+        <script>
+            function lockDropdown() {
+                let containerId = arguments[0];
+                let dropdownId = arguments[1];
+                let dropdownOptionsId = arguments[2];
+                let idNumber = arguments[3];
+
+                document.getElementById(containerId).removeEventListener('mouseout', functionsHide[idNumber]);
+                document.getElementById(containerId).focus();
+
+                document.getElementById(dropdownId).style.visibility = 'visible';
+
+                var elements = document.getElementsByName('taskContainer');
+                for (var i = 0; i < elements.length; i++) {
+                    elements[i].style.pointerEvents = 'none';
+                }
+                document.getElementById(dropdownOptionsId).style.pointerEvents = 'auto';
+
+                $(document).click(function () {
+                    unlockDropdown(containerId, dropdownId, dropdownOptionsId, idNumber);
+                });
+            }
+
+            function unlockDropdown() {
+                let containerId = arguments[0];
+                let dropdownId = arguments[1];
+                let dropdownOptionsId = arguments[2];
+                let idNumber = arguments[3];
+
+                document.getElementById(containerId).addEventListener('mouseout', functionsHide[idNumber]);
+                document.getElementById(containerId).blur();
+
+                document.getElementById(dropdownId).style.visibility = 'hidden';
+
+                var elements = document.getElementsByName('taskContainer');
+                for (var i = 0; i < elements.length; i++) {
+                    elements[i].style.pointerEvents = 'auto';
+                }
+                document.getElementById(dropdownOptionsId).style.pointerEvents = 'none';
             }
         </script>
     }
