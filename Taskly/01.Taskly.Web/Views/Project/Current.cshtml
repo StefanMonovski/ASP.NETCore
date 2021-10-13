@@ -72,7 +72,7 @@
             }
             <ul class="list-group list-group-flush">
                 @{ int i = 0; }
-                @foreach (var task in Model.Tasks.Where(x => x.IsCompleted == false))
+                @foreach (var task in Model.Tasks.Where(x => x.IsCompleted == false).OrderBy(x => x.Priority.Id))
                 {
                     <li id="taskContainer[@i]" name="taskContainer" tabindex="-1" class="list-group-item list-group-item-action"
                         onclick="loadCurrentTaskModalAjax('@task.Guid', event.target.id, @i);">
@@ -105,7 +105,20 @@
                         </div>
 
                         <a name="completeCircle" onclick="document.getElementById('formCompleteTask[@i]').submit();">
-                            <img src="~/img/circle.svg" alt="Complete" />
+                            @if (task.Priority != null)
+                            {
+                                @switch (task.Priority.PriorityColorName)
+                                {
+                                    case "Red":<img src="~/img/priorityCircles/circleRed.svg" alt="Complete" /> break;
+                                    case "Orange": <img src="~/img/priorityCircles/circleOrange.svg" alt="Complete" /> break;
+                                    case "Yellow": <img src="~/img/priorityCircles/circleYellow.svg" alt="Complete" /> break;
+                                    case "White": <img src="~/img/priorityCircles/circleNone.svg" alt="Complete" />break;
+                                }
+                            }
+                            else
+                            {
+                                <img src="~/img/priorityCircles/circleNone.svg" alt="Complete" />
+                            }
                         </a>
                     </li>
                     i++;

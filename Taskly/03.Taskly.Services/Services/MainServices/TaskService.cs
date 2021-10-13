@@ -29,7 +29,8 @@ namespace Taskly.Services.Services
                 Title = title,
                 Description = description,
                 ProjectId = projectId,
-                CreatorId = userId
+                CreatorId = userId,
+                PriorityId = 4
             };
 
             await context.Tasks.AddAsync(task);
@@ -46,7 +47,8 @@ namespace Taskly.Services.Services
                 Description = description,
                 ProjectId = projectId,
                 CreatorId = userId,
-                ParentTaskId = parentTaskId
+                ParentTaskId = parentTaskId,
+                PriorityId = 4
             };
 
             await context.Tasks.AddAsync(task);
