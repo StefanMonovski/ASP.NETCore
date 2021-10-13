@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -45,6 +46,15 @@ namespace Taskly.Web.Controllers
         public async Task<IActionResult> Uncomplete(int taskId, string projectGuid)
         {
             await taskService.UncompleteTaskAsync(taskId);
+
+            return RedirectToAction("Current", "Project", new { guid = projectGuid });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> ChangePriority(int taskId, int priorityId, string projectGuid)
+        {
+            await taskService.AddTaskPriorityAsync(taskId, priorityId);
 
             return RedirectToAction("Current", "Project", new { guid = projectGuid });
         }

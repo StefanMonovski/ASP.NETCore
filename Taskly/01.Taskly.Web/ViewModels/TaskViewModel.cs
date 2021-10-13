@@ -15,5 +15,7 @@ namespace Taskly.Web.ViewModels
         public DateTime? Schedule { get; set; }
 
         public bool IsCompleted { get; set; }
+
+        public PriorityViewModel Priority { get; set; }
     }
 }
